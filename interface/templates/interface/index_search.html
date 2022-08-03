@@ -1,0 +1,116 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder text-white mb-2">Be aware of News about popular topics</h1>
+                        <p class="lead fw-normal text-white-50 mb-4">A system based on artificial intelligence, to
+                            receive the latest and most visited news about metaverse, technology, sports and etc.</p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Check News</a>
+                            {% if request.user.is_authenticated %}
+                                <a class="btn btn-outline-light btn-lg px-4" href="{% url 'account' %}">Dashboard</a>
+                            {% else %}
+                                <a class="btn btn-outline-light btn-lg px-4" href="{% url 'login' %}">Login</a>
+                                <a class="btn btn-outline-light btn-lg px-4" href="{% url 'register' %}">Register</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5"
+                                                                                   src="{% static 'assets/metanews.jpg' %}"
+                                                                                   alt="..."/></div>
+            </div>
+        </div>
+
+        <div class="s004">
+            <form action="{% url 'index' %}" method="get" id="form1">
+                <legend>Search</legend>
+                <fieldset>
+                    <div class="inner-form">
+                        <div class="input-field">
+                            <input class="form-control" id="choices-text-preset-values" type="text"
+                                   placeholder="{{ search_query }}" name="search_query"/>
+                            <button class="btn-search" type="submit" form="form1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suggestion-wrap">
+                        <a style="color: white;text-decoration: none;"
+                           href="{% url 'topic' 'metaverse' %}">Metaverse</a>
+                        <a style="color: white;text-decoration: none; margin-left: 5%"
+                           href="{% url 'topic' 'technology' %}">Technology</a>
+                        <a style="color: white;text-decoration: none; margin-left: 5%"
+                           href="{% url 'topic' 'sports' %}">Sports</a>
+                        <a style="color: white;text-decoration: none; margin-left: 5%"
+                           href="{% url 'topic' 'entertainment' %}">Entertainment</a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </header>
+
+    <!-- Blog preview section-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="text-center">
+                        <h2 class="fw-bolder">What you searched:</h2>
+                        {% if posts.has_other_pages %}
+                        <p class="lead fw-normal text-muted mb-5">These are based on your search query</p>
+                            {% else %}
+                            <p class="lead fw-normal text-muted mb-5">No matching result found :(</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-5">
+
+                {% for post in posts %}
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            {% if 'posts' in post.image.url %}
+                                <img class="card-img-top" src="{{ post.image.url }}" alt="..."/>
+                            {% else %}
+                                <img class="card-img-top" src="{{ post.image }}" alt="..."/>
+                            {% endif %}
+                            <div class="card-body p-4">
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ post.topic }}</div>
+                                <a class="text-decoration-none link-dark stretched-link"
+                                   href="{% url 'post' post.title %}"><h5
+                                        class="card-title mb-3">{{ post.title }}</h5></a>
+                                <p class="card-text mb-0">{{ post.description|truncatewords:20 }}</p>
+                            </div>
+                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle me-3"
+                                             src="{{ post.author.profile_image.url }}"
+                                             alt="..."/>
+                                        <div class="small">
+                                            <div class="fw-bold">{{ post.author.name }}</div>
+                                            <div class="text-muted">{{ post.created }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% include 'pagination.html' with query_set=posts custom_range=custom_range %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

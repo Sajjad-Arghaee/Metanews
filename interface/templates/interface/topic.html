@@ -1,0 +1,180 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <h1 class="fw-bolder fs-5 mb-4">{{ topic }}</h1>
+            <div class="card border-0 shadow rounded-3 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="row gx-0">
+                        <div class="col-lg-6 col-xl-5 py-lg-5">
+                            {% if topic == 'metaverse' %}
+                                <div class="p-4 p-md-5">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Introduction</div>
+                                    <div class="h2 fw-bolder">Metaverse is a new vision to the world!</div>
+                                    <p>In futurism and science fiction, the metaverse is a hypothetical iteration of the
+                                        Internet as a single, universal and immersive virtual world that is facilitated
+                                        by
+                                        the use of virtual reality and augmented reality headsets. In colloquial use, a
+                                        metaverse is a network of 3D virtual worlds focused on social connection.</p>
+                                </div>
+                            {% elif topic == 'technology' %}
+                                <div class="p-4 p-md-5">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Introduction</div>
+                                    <div class="h2 fw-bolder">Technology is the application of scientific knowledge to
+                                        the practical aims of human life!
+                                    </div>
+                                    <p>Technology is the result of accumulated knowledge and application of skills,
+                                        methods, and processes used in industrial production and scientific research.
+                                        Technology is embedded in the operation of all machines and electronic devices,
+                                        with or without detailed knowledge of their function, for the intended purpose
+                                        of an organization. The technologies of society consist of what is known as
+                                        systems. Systems operate by obtaining an input, altering this input through what
+                                        is known as a process, and then producing an outcome that achieves the intended
+                                        purpose of the system.</p>
+                                </div>
+                            {% elif topic == 'sports' %}
+                                <div class="p-4 p-md-5">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Introduction</div>
+                                    <div class="h2 fw-bolder">Sport pertains to any form of competitive physical
+                                        activity or game!
+                                    </div>
+                                    <p>Sports can, through casual or organized participation, improve one's physical
+                                        health. Hundreds of sports exist, from those between single contestants, through
+                                        to those with hundreds of simultaneous participants, either in teams or
+                                        competing as individuals. In certain sports such as racing, many contestants may
+                                        compete, simultaneously or consecutively, with one winner; in others, the
+                                        contest (a match) is between two sides, each attempting to exceed the other.
+                                        Some sports allow a "tie" or "draw", in which there is no single winner; others
+                                        provide tie-breaking methods to ensure one winner and one loser.</p>
+                                </div>}
+                            {% else %}
+                                <div class="p-4 p-md-5">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Introduction</div>
+                                    <div class="h2 fw-bolder">All Entertainment News Together!
+                                    </div>
+                                    <p>Although people's attention is held by different things because individuals have
+                                        different preferences, most forms of entertainment are recognisable and
+                                        familiar. Storytelling, music, drama, dance, and different kinds of performance
+                                        exist in all cultures, were supported in royal courts, developed into
+                                        sophisticated forms and over time became available to all citizens. The process
+                                        has been accelerated in modern times by an entertainment industry that records
+                                        and sells entertainment products.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-6 col-xl-7">
+                            <div class="bg-featured-blog">
+                                {% if topic == 'metaverse' %}
+                                    <img src="{% static 'assets/Metaverse.png' %}" alt="">
+                                {% elif topic == 'technology' %}
+                                    <img src="{% static 'assets/Technology.jpg' %}" alt="">
+                                {% elif topic == 'sports' %}
+                                    <img src="{% static 'assets/sport.jpg' %}" alt="">
+                                {% else %}
+                                    <img src="{% static 'assets/entertainments.jpg' %}" alt="">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container px-5">
+            <div class="row gx-5">
+                <div class="col-xl-8">
+                    <h2 class="fw-bolder fs-5 mb-4">News</h2>
+                    <!-- News item-->
+                    <div class="mb-4">
+                        {% for top_post in top_posts %}
+                            <div class="small text-muted">{{ top_post.created }}</div>
+                            <a class="link-dark" href="{% url 'post' top_post.title %}"><h3>{{ top_post.title }}</h3>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="text-end mb-5 mb-xl-0">
+                        <a class="text-decoration-none" href="#scroll_target">
+                            More news
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card border-0 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex h-100 align-items-center justify-content-center">
+                                <div class="text-center">
+                                    <div class="h6 fw-bolder">Contact</div>
+                                    <p class="text-muted mb-4">
+                                        For press inquiries, email us at
+                                        <br/>
+                                        <a href="mailto:arghaei1380@yahoo.com">arghaei1380@yahoo.com</a>
+                                    </p>
+                                    <div class="h6 fw-bolder">Follow us</div>
+                                    <a class="fs-5 px-2 link-dark" href="https://www.instagram.com/sajjad.arg/"><i
+                                            class="bi-instagram"></i></a>
+                                    <a class="fs-5 px-2 link-dark"
+                                       href="https://www.linkedin.com/in/sajjad-arghaei-173a90238/"><i
+                                            class="bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog preview section-->
+    <section class="py-5" id="scroll_target">
+        <div class="container px-5">
+            <h2 class="fw-bolder fs-5 mb-4">Newest News</h2>
+            <div class="row gx-5">
+                {% for post in posts %}
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <a href="{% url 'post' post.title %}">
+                                {% if 'posts' in post.image.url %}
+                                    <img class="card-img-top" src="{{ post.image.url }}" alt="..."/>
+                                {% else %}
+                                    <img class="card-img-top" src="{{ post.image }}" alt="..."/>
+                                {% endif %}
+                            </a>
+                            <div class="card-body p-4">
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ post.topic }}</div>
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ post.views_count }}
+                                    views
+                                </div>
+                                <a class="text-decoration-none link-dark" href="{% url 'post' post.title %}">
+                                    <div class="h5 card-title mb-3">{{ post.title }}</div>
+                                </a>
+                                <p class="card-text mb-0">{{ post.description|truncatewords:20 }}</p>
+                            </div>
+                            <a href="{% url 'profile' post.author.name %}" style="text-decoration: none">
+                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                    <div class="d-flex align-items-end justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded-circle me-3" style="object-fit: cover;"
+                                                 src="{{ post.author.profile_image.url }}"
+                                                 alt="..."/>
+                                            <div class="small">
+                                                <div class="fw-bold">{{ post.author }}</div>
+                                                <div class="text-muted">{{ post.created }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% include 'pagination.html' with query_set=posts custom_range=custom_range %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock content %}
