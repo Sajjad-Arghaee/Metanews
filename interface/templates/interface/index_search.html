@@ -59,7 +59,6 @@
         </div>
 
     </header>
-
     <!-- Blog preview section-->
     <section class="py-5">
         <div class="container px-5 my-5">
@@ -108,7 +107,7 @@
                         </div>
                     </div>
                 {% endfor %}
-            {% include 'pagination.html' with query_set=posts custom_range=custom_range %}
+            {% include 'pagination_search.html' with query_set=posts custom_range=custom_range search_query=search_query %}
             </div>
         </div>
     </section>

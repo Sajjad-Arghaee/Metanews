@@ -34,10 +34,14 @@
             <ul class="header__menu">
                 <li class="header__menuItem"><a href="{% url 'index' %}">Home</a></li>
                 <li class="header__menuItem"><a href="{% url 'about' %}">About</a></li>
-                <li class="header__menuItem"><a href="{% url 'inbox' %}">Inbox</a></li>
-                <li class="header__menuItem"><a href="{% url 'contact' %}">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                    <li class="header__menuItem"><a href="{% url 'inbox' %}">Inbox</a></li>
+                    <li class="header__menuItem"><a href="{% url 'suggest' %}">Suggestions</a></li>
+                {% endif %}
                 <li class="header__menuItem"><a href="{% url 'faq' %}">FAQ</a></li>
-                <li class="header__menuItem"><a href="{% url 'logout' %}" class="btn btn--sub">Logout</a></li>
+                {% if request.user.is_authenticated %}
+                    <li class="header__menuItem"><a href="{% url 'logout' %}" class="btn btn--sub">Logout</a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>
@@ -58,17 +62,7 @@
                              src="{{ profile.profile_image.url }}"/>
                         <h2 class="dev__name">{{ profile.name }}</h2>
                         <p class="dev__title">{{ profile.short_intro }}</p>
-                        <ul class="dev__social">
-                            <li>
-                                <a title="Github" href="#" target="_blank"><i class="im im-github"></i></a>
-                            </li>
-                            <li>
-                                <a title="LinkedIn" href="#" target="_blank"><i class="im im-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a title="Personal Website" href="#" target="_blank"><i class="im im-globe"></i></a>
-                            </li>
-                        </ul>
+
                         {% if request.user.profile != profile %}
                             <a href="{% url 'send_message' profile.name %}" class="btn btn--sub btn--lg">Send
                                 Message </a>
@@ -141,9 +135,9 @@
                 <div class="small m-0 text-white">Copyright &copy; MetaNews 2022</div>
             </div>
             <div class="col-auto">
-                <a class="link-light small" href="#!">Privacy</a>
+                <a class="link-light small" href="{% url 'about' %}">About</a>
                 <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Terms</a>
+                <a class="link-light small" href="{% url 'faq' %}">FAQ</a>
                 <span class="text-white mx-1">&middot;</span>
                 <a class="link-light small" href="{% url 'contact' %}">Contact</a>
             </div>

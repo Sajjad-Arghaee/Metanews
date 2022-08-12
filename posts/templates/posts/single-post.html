@@ -30,8 +30,12 @@
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.topic }}</a>
                         </header>
                         <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded"
-                                                  src="{{ post.image }}" alt=""/>
+                        <figure class="mb-4">
+                            {% if 'posts' in post.image.url %}
+                            <img class="img-fluid rounded" src="{{ post.image.url }}" alt=""/>
+                            {% else %}
+                            <img class="img-fluid rounded" src="{{ post.image }}" alt=""/>
+                            {% endif %}
                         </figure>
                         <!-- Post content-->
                         <section class="mb-5">

@@ -8,5 +8,5 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('topic/<str:pk>/', views.topic, name='topic'),
     path('post/', include('posts.urls')),
-    path('users/', include('users.urls'))
+    path('users/', include('users.urls')),
 ]
