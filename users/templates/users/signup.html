@@ -47,6 +47,7 @@
 
         <form action="{% url 'register' %}" method="post" class="form auth__form">
             {% csrf_token %}
+            <span style="color: red">{{ alert|linebreaksbr }}</span>
             {% for field in form %}
                 <div class="form__field">
                     <label for="formInput#confirm-password">{{ field.label }}</label>
