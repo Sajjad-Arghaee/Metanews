@@ -59,6 +59,7 @@
             {% csrf_token %}
             <!-- Input:Email -->
             <div class="form__field">
+                <span style="color: red">{{ alert }}</span>
                 <label for="formInput#text">Username: </label>
                 <input
                         class="input input--text"
