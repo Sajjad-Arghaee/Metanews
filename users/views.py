@@ -15,6 +15,7 @@ def show_profile(request, pk):
 
 
 def login_user(request):
+    alert = ''
     if request.user.is_authenticated:
         return redirect('account')
     if request.method == 'POST':
@@ -27,10 +28,12 @@ def login_user(request):
             return redirect('account')
 
         print('wrong password or username !')
-    return render(request, 'users/login.html')
+        alert = 'wrong password or username !'
+    return render(request, 'users/login.html', {'alert': alert})
 
 
 def register_user(request):
+    alert = ''
     if request.user.is_authenticated:
         return redirect('account')
     if request.method == 'POST':
@@ -43,8 +46,15 @@ def register_user(request):
             return redirect('account')
         else:
             print('something went wrong!')
+            alert = """something went wrong! because one of this reasons:
+                        Your password can't be too similar to your other personal information.
+                        Your password must contain at least 8 characters.
+                        Your password can't be commonly used password.
+                        Your password can't be entirely numeric.
+                        Your password and password confirmation don't match.
+                    """
     form = CustomUserCreationForm()
-    context = {'form': form}
+    context = {'form': form, 'alert': alert}
     return render(request, 'users/signup.html', context)
 
 
