@@ -1,3 +1,5 @@
+Demo on https://metanews.pythonanywhere.com/
+
 Be aware of News about popular topics.
 This is a system based on artificial intelligence, to receive the latest and most visited news about metaverse, technology, sports and etc.
 
