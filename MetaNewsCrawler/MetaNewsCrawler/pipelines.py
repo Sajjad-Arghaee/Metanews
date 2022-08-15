@@ -12,9 +12,14 @@ class MetanewscrawlerPipeline:
         except Exception:
             post = None
         if not post:
-            euro_news = Profile.objects.get(name='euronews')
-            euro_news.active_posts += 1
-            euro_news.save()
+            if obj.author.name == 'euronews':
+                euro_news = Profile.objects.get(name='euronews')
+                euro_news.active_posts += 1
+                euro_news.save()
+            else:
+                xrtoday = Profile.objects.get(name='xrtoday')
+                xrtoday.active_posts += 1
+                xrtoday.save()
             post = item.save()
             ml = MonkeyLearn('4201683e97f0c1d475d3a466097c0e63e8082c54')
             data = [post.title]
