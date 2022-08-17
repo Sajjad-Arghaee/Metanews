@@ -21,7 +21,7 @@ class MetanewscrawlerPipeline:
                 xrtoday.active_posts += 1
                 xrtoday.save()
             post = item.save()
-            ml = MonkeyLearn('4201683e97f0c1d475d3a466097c0e63e8082c54')
+            ml = MonkeyLearn('api key is hidden')
             data = [post.title]
             model_id = 'ex_YCya9nrn'
             result = ml.extractors.extract(model_id, data)
