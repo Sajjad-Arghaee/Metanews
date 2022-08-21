@@ -5,9 +5,9 @@ from users.models import Profile
 
 
 class TechnologySpider(scrapy.Spider):
-    name = 'entertainment_spider2'
+    name = 'technology_spider2'
     start_urls = [
-        'https://www.xrtoday.com/tag/5g/'
+        'https://www.xrtoday.com/augmented-reality/page/40/'
     ]
 
     def parse(self, response: Response, **kwargs):
@@ -23,7 +23,7 @@ class TechnologySpider(scrapy.Spider):
         title = response.css('.mt-0::text').extract_first().replace('\n', '').replace('\\', '').strip()
         description = ' '.join(response.css('.post_body h2 , .post_body > p::text').extract()).replace('\n', '').replace('\\', '').strip()
         image = response.css('img.mb-30::attr(src)').extract_first()
-        item['topic'] = 'entertainment'
+        item['topic'] = 'technology'
         item['title'] = title
         item['description'] = description
         item['image'] = image
